@@ -11,6 +11,8 @@ import org.springframework.cloud.service.common.MysqlServiceInfo;
 import org.springframework.cloud.service.common.OracleServiceInfo;
 import org.springframework.cloud.service.common.PostgresqlServiceInfo;
 import org.springframework.cloud.service.common.RedisServiceInfo;
+import org.springframework.cloud.service.common.RelationalServiceInfo;
+
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.StringUtils;
@@ -34,6 +36,7 @@ public class SpringApplicationContextInitializer implements ApplicationContextIn
         serviceTypeToProfileName.put(MysqlServiceInfo.class, "mysql");
         serviceTypeToProfileName.put(RedisServiceInfo.class, "redis");
         serviceTypeToProfileName.put(OracleServiceInfo.class, "oracle");
+        serviceTypeToProfileName.put(RelationalServiceInfo.class, "sqlserver-local");
     }
 
     @Override

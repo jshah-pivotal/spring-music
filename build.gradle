@@ -68,17 +68,22 @@ dependencies {
 
     // JPA Persistence
     compile "commons-dbcp:commons-dbcp:1.2.2"
-    compile 'org.hibernate:hibernate-entitymanager:4.1.9.Final'
+//    compile 'org.hibernate:hibernate-entitymanager:4.1.9.Final'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.10.Final'
     runtime 'com.h2database:h2:1.3.162'
     runtime 'mysql:mysql-connector-java:5.1.25'
     runtime 'postgresql:postgresql:9.1-901-1.jdbc4'
+    
+    // MS-SQL Server for SQL and Azure
+    runtime 'com.microsoft:sqljdbc4:4.0'    
 
     // Redis Persistence
     compile 'redis.clients:jedis:2.6.2'
 
     // JSR-303 validation
     compile 'javax.validation:validation-api:1.0.0.GA'
-    compile 'org.hibernate:hibernate-validator:4.3.0.Final'
+//    compile 'org.hibernate:hibernate-validator:4.3.0.Final'
+    compile 'org.hibernate:hibernate-validator:4.3.2.Final'
 
     // Webjars
     compile 'org.webjars:bootstrap:3.1.1'
