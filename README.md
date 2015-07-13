@@ -25,16 +25,19 @@ where `<profile>` is one of the following values:
 * `postgres`
 * `mongodb`
 * `redis`
+* `sqlserver-local`
 
 If no profile is provided, `in-memory` will be used. If any other profile is provided, the appropriate database server
 must be started separately. The application will use the host name `localhost` and the default port to connect to the database.
+
+==> For local MS-SQL server: Edit the **SqlServerLocalDataSourceConfig** class to change the DB connection settings.
 
 If more than one of these profiles is provided, the application will throw an exception and fail to start.
 
 ## Running the application on Cloud Foundry
 
 When running on Cloud Foundry, the application will detect the type of database service bound to the application
-(if any). If a service of one of the supported types (MySQL, Postgres, Oracle, MongoDB, or Redis) is bound to the app, the
+(if any). If a service of one of the supported types (MySQL, Postgres, Oracle, MongoDB, Redis or Microsoft Azure SQL server) is bound to the app, the
 appropriate Spring profile will be configured to use the database service. The connection strings and credentials
 needed to use the service will be extracted from the Cloud Foundry environment.
 
@@ -95,6 +98,8 @@ These steps use examples for username, password, host name, and database name th
 $ cf create-user-provided-service oracle-db -p '{"uri":"oracle://root:secret@dbserver.example.com:1521/mydatabase"}'
 # create a user-provided MySQL database service instance
 $ cf create-user-provided-service mysql-db -p '{"uri":"mysql://root:secret@dbserver.example.com:3306/mydatabase"}'
+# create a user-provided Microsoft Azure SQL database service instance
+$ cf create-user-provided-service sqlserver-db -p '{"uri":"sqlserver://root:secret@dbserver.example:1433/mydatabase"}'
 # bind a service instance to the application
 $ cf bind-service <app name> <service name>
 # restart the application so the new service is detected
@@ -116,5 +121,9 @@ $ cf restart
 
 Database drivers for MySQL, Postgres, MongoDB, and Redis are included in the project. To connect to an Oracle database,
 you will need to download the appropriate driver (e.g. from http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html?ssSourceSiteId=otnjp),
+add the driver .jar file to the `src/main/webapp/WEB-INF/lib` directory in the project, and re-build the
+application .war file using `./gradlew assemble`.     
+To connect to a Microsoft Azure SQL database,
+you will need to download the appropriate driver,
 add the driver .jar file to the `src/main/webapp/WEB-INF/lib` directory in the project, and re-build the
 application .war file using `./gradlew assemble`.
