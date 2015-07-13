@@ -7,12 +7,12 @@ import org.springframework.cloud.CloudException;
 import org.springframework.cloud.CloudFactory;
 import org.springframework.cloud.service.ServiceInfo;
 import org.springframework.cloud.service.common.MongoServiceInfo;
+import org.springframework.cloud.service.common.SqlServerServiceInfo;
 import org.springframework.cloud.service.common.MysqlServiceInfo;
 import org.springframework.cloud.service.common.OracleServiceInfo;
 import org.springframework.cloud.service.common.PostgresqlServiceInfo;
 import org.springframework.cloud.service.common.RedisServiceInfo;
 import org.springframework.cloud.service.common.RelationalServiceInfo;
-
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.StringUtils;
@@ -37,6 +37,7 @@ public class SpringApplicationContextInitializer implements ApplicationContextIn
         serviceTypeToProfileName.put(RedisServiceInfo.class, "redis");
         serviceTypeToProfileName.put(OracleServiceInfo.class, "oracle");
         serviceTypeToProfileName.put(RelationalServiceInfo.class, "sqlserver-local");
+        serviceTypeToProfileName.put(SqlServerServiceInfo.class, "sqlserver");
     }
 
     @Override
@@ -70,10 +71,13 @@ public class SpringApplicationContextInitializer implements ApplicationContextIn
         logger.info("Found serviceInfos: " + StringUtils.collectionToCommaDelimitedString(serviceInfos));
 
         for (ServiceInfo serviceInfo : serviceInfos) {
+            logger.info("ServiceInfo-class: " + serviceInfo.getClass().getName());
             if (serviceTypeToProfileName.containsKey(serviceInfo.getClass())) {
+                logger.info("ServiceInfo added to profile");
                 profiles.add(serviceTypeToProfileName.get(serviceInfo.getClass()));
             }
         }
+        logger.info("ServiceInfo done");
 
         if (profiles.size() > 1) {
             throw new IllegalStateException(

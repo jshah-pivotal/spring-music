@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @Profile("sqlserver")
 @EnableJpaRepositories("org.cloudfoundry.samples.music.repositories.jpa")
-public class MsSqlServerRepositoryConfig extends AbstractJpaRepositoryConfig {
+public class SqlServerRepositoryConfig extends AbstractJpaRepositoryConfig {
 
     protected String getHibernateDialect() {
         return SQLServer2012Dialect.class.getName();
